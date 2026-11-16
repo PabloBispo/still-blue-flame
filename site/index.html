@@ -167,9 +167,9 @@ var tr=['gas','liquid','solid'].map(function(ph){var r=D.o2p.filter(function(x){
   marker:{color:C[ph],opacity:ph=='solid'?1:.45,size:r.map(function(x){return (ph=='solid'?8:6)+Math.sqrt(x.tests)*2.2}),line:{width:ph=='solid'?1.5:0,color:'#fff3df'}},
   text:r.map(function(x){return x.tests+' test'+(x.tests>1?'s':'')}),hovertemplate:ph+'<br>%{y}% O₂ at %{x} kPa<br>%{text}<extra></extra>'}});
 tr.push({type:'scatter',mode:'markers+text',name:'target atmosphere',x:D.targets.map(function(t){return t.pressure_kpa}),y:D.targets.map(function(t){return t.o2_pct}),
- text:D.targets.map(function(t){return t.atmosphere}),textposition:'top center',textfont:{color:'#eaf4ff',size:11},marker:{symbol:'star',size:16,color:'#ffffff',line:{color:'#5cc8ff',width:1.5}},
+ text:D.targets.map(function(t){return t.atmosphere}),textposition:'middle right',textfont:{color:'#eaf4ff',size:11},marker:{symbol:'star',size:16,color:'#ffffff',line:{color:'#5cc8ff',width:1.5}},
  customdata:D.targets.map(function(t){return t.basis}),hovertemplate:'%{text}<br>%{customdata}<extra></extra>'});
-Plotly.newPlot('p-cov',tr,Object.assign({},base,{xaxis:ax('Chamber pressure (kPa, log scale)',{type:'log',tickvals:[50,70,100,150,200,300,500],range:[1.6,2.75]}),yaxis:ax('Chamber oxygen (%)',{range:[8,44]}),
+Plotly.newPlot('p-cov',tr,Object.assign({},base,{xaxis:ax('Chamber pressure (kPa, log scale)',{type:'log',tickvals:[50,70,100,150,200,300,500],range:[1.6,2.75]}),yaxis:ax('Chamber oxygen (%)',{range:[8,44]}),showlegend:false,
  shapes:[{type:'rect',xref:'paper',x0:0,x1:1,y0:30,y1:44,fillcolor:'rgba(255,180,84,.06)',line:{width:0}},{type:'line',xref:'paper',x0:0,x1:1,y0:30,y1:30,line:{color:'rgba(255,180,84,.6)',width:1,dash:'dot'}}],
  annotations:[{xref:'paper',x:.99,y:43,xanchor:'right',text:'no solid-fuel test above this line',showarrow:false,font:{color:'#ffb454',size:11}}]}),cfg);
 // hist
