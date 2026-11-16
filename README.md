@@ -14,7 +14,7 @@ NASA burned 2,299 samples in microgravity. None of the solid ones in the air a M
 |---|---|
 | Unified dataset | 2,299 tests from 13 investigations, 24,905 measurements, one schema, SI units, a source on every row (PSI ID, DOI, file, sheet, row) |
 | Outcome labels from logs | 552 tests with no outcome in the published tables got one from the experiment script logs. Against the PI's own table in CFI-G the rule agrees in 269 of 284 tests (94.7%) |
-| Video to data | The on-screen telemetry of 16 of 244 BASS-II videos (289,149 frames) read and joined to the test matrix |
+| Video to data | A deterministic reader (no language model, no generic OCR) for the telemetry burned into BASS-II videos: 94 videos read (1,248,016 frames), 86 tests accepted and joined to the test matrix, with the fan sequence and how each test ended |
 | Dashboard | Coverage and gaps, what the evidence says, video to data, the 24 investigations side by side |
 
 ## Findings (descriptive, no statistical test)
@@ -25,7 +25,7 @@ NASA burned 2,299 samples in microgravity. None of the solid ones in the air a M
 
 ## What we do not claim
 
-No fitted flammability or quenching boundary. Nothing about partial gravity (PSI holds no such test). No diluent effect in FLEX. The camera alone is not a reliable extinction detector (4 of 16 videos).
+No fitted flammability or quenching boundary. Nothing about partial gravity (PSI holds no such test). No diluent effect in FLEX. The camera alone is not a reliable extinction detector (35 of 86 tests).
 
 ## Reproduce
 

@@ -120,8 +120,8 @@ footer{border-top:1px solid rgba(92,200,255,.12);margin-top:50px;padding:22px 0 
       <li>Spreadsheet and video agree on air speed at extinction in 7 of 8 tests (median absolute difference 0.13 cm/s). Both use the same calibration curve.</li>
       <li>11 PMMA rods: radiometer decay starts between 0.75 and 2.25 cm/s, at 14.8% to 22.2% O₂. Read as "below about 2 cm/s". No trend with O₂ at this resolution.</li>
       <li>The video adds data the matrix lacks: tests O3b and P1 have no fan reading in the spreadsheet.</li>
-      <li>Rejected: the camera as an extinction detector (reliable in 4 of 16 videos).</li>
-      <li>Coverage: 16 of 244 BASS-II videos (6.6%).</li></ul></div>
+      <li>Rejected: the camera as an extinction detector (reliable in 35 of 86 tests).</li>
+      <li>Coverage: 97 of 244 BASS-II video files read, 86 tests accepted. How the 86 tests ended: 63 flames went out at a steady fan setting, 9 were blown out by the operator, 10 recordings stop first, 4 show no radiometer fall. The charts and table below show the first 16 videos; the dataset release has all 86.</li></ul></div>
   </div>
   <div class="card" style="margin-top:12px"><h3>Videos read</h3><div class="tw"><table id="t-vid"></table></div></div>
 </section>
@@ -191,7 +191,7 @@ var f0=cnt('ACME Flame Design','Below 30% O2','Sustained'),f1=f0+cnt('ACME Flame
 document.getElementById('t-cfig').innerHTML='Below 30% O₂: <b>'+a0+' of '+a1+'</b> sustained. At 30% or more: <b>'+a2+' of '+a3+'</b> ('+pct(a2,a3)+'%), all between 33.2% and 39.9% O₂. Ethane, propane and butane. PSI-159.';
 document.getElementById('t-fd').innerHTML='Below 30% O₂: <b>'+f0+' of '+f1+'</b> sustained. At 30% or more: <b>'+f2+' of '+f3+'</b> ('+pct(f2,f3)+'%). Ethylene and propane. PSI-10.';
 // video
-document.getElementById('vk').innerHTML=[['16 of 244','BASS-II videos read'],['289,149','frames decoded'],['7 of 8','tests where video and spreadsheet agree'],['0.13 cm/s','median difference at extinction']].map(function(k){return '<div class="card kpi"><div class="v">'+k[0]+'</div><div class="k mono">'+k[1]+'</div></div>'}).join('');
+document.getElementById('vk').innerHTML=[['86 tests','BASS-II videos accepted (94 read)'],['1,248,016','frames decoded'],['7 of 8','tests compared where video and spreadsheet agree'],['0.13 cm/s','median difference at extinction']].map(function(k){return '<div class="card kpi"><div class="v">'+k[0]+'</div><div class="k mono">'+k[1]+'</div></div>'}).join('');
 var sel=document.getElementById('vsel'),keys=Object.keys(D.vsec);
 sel.innerHTML=keys.map(function(k){var m=D.vt.filter(function(x){return x.test==k})[0]||{};return '<option value="'+k+'">'+k+' · '+esc(m.material||'')+' · '+(m.o2_pct!=null?m.o2_pct+'% O₂':'')+'</option>'}).join('');
 function drawV(k){var v=D.vsec[k],m=D.vt.filter(function(x){return x.test==k})[0]||{},sh=[];
