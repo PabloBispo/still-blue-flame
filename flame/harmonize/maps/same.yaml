@@ -1,0 +1,16 @@
+table_id: same
+psi_id: PSI-102
+grain: test
+title: SAME, smoke aerosol measurement (first flight)
+source:
+  file: files/PSI-102/Experimental table/PSI-102_Experimental table_SAME.csv
+constants: {fuel_phase: solid, geometry: heated_sample, oxidizer_location: ambient}
+label: ['Sample #']
+semantic_notes:
+  - "Rows 5 to 8 say 'same conditions as 1-4' instead of repeating values. The conditions are NOT copied; those cells stay null."
+columns:
+  'Sample #': {field: test_label}
+  Sample Material: {field: fuel_raw}
+  Air Flow (cm/s): {field: flow_velocity_cm_s, parser: number, unit: cm/s}
+  Weight loss rate (mg/min): {variable: weight_loss_rate, parser: number, unit: mg/min}
+  Aging Duration (minutes): {variable: aging_duration, parser: number, unit: min}

@@ -1,0 +1,32 @@
+table_id: cfig_normal
+psi_id: PSI-159
+grain: test
+title: ACME CFI-G, normal flames (fuel issues from the spherical burner into an oxidizer ambient)
+source:
+  file: files/PSI-159/Experimental table/PSI-159_Experimental table_CFI-G_Normal Flames.csv
+constants: {fuel_phase: gas, geometry: spherical_burner, flame_type: normal, oxidizer_location: ambient}
+label: [Test]
+semantic_notes:
+  - XO2 is the oxygen fraction of the chamber atmosphere (habitat-comparable axis).
+  - Xf is the fuel mole fraction of the burner stream.
+columns:
+  Flame Type: {ignore: 'constant; see constants.flame_type'}
+  Day: {field: campaign_day}
+  Fuel: {field: fuel_raw}
+  Test: {field: test_label}
+  Cool flame?: {variable: cool_flame}
+  XO2 before test: {field: o2_mole_frac, parser: number, unit: mole_frac}
+  XO2 after test: {field: o2_mole_frac_final, parser: number, unit: mole_frac}
+  approx p (bar): {field: pressure_kpa, parser: number, unit: bar}
+  Xf: {field: fuel_mole_frac, parser: number, unit: mole_frac}
+  mHC (mg/s): {variable: hc_fuel_mass_flow, parser: number, unit: mg/s}
+  TFP: {variable: tfp_used}
+  Tad (K): {variable: adiabatic_flame_temp, parser: number, unit: K}
+  Zst: {variable: stoich_mixture_fraction, parser: number, unit: '1'}
+  Hot ignition:
+    - {field: ignited, parser: enum, map: {'yes': true, 'no': false}}
+    - {variable: ignition_class}
+  burn time (sec): {field: burn_time_s, parser: number, unit: s}
+  Self-ext or flow term: {field: outcome, parser: enum, map: {SE: self_extinguished, FT: flow_terminated}}
+  Peak burner T (C ): {variable: peak_burner_temp, parser: number, unit: C}
+  Comments: {field: notes}

@@ -1,0 +1,27 @@
+table_id: saffire1
+psi_id: PSI-98
+grain: test
+title: Saffire-I, large-scale flame spread in Cygnus
+source:
+  file: files/PSI-98/Experimental table/PSI-98_Experimental table_SAFFIRE-1.csv
+constants: {fuel_phase: solid, geometry: fabric_sheet, oxidizer_location: ambient}
+label: [Sample Number]
+keep_if:
+  - {column: Sample Number, regex: '^S\d', reason: 'pre-test flow visualisation row, not a burn'}
+semantic_notes:
+  - "Source inconsistency on SIBAL thickness: 0.37 cm here, '037 mm' in Saffire-II, '.33 cm' in Saffire-III. Units are converted as written; treat thickness_mm of the Saffire tables as unreliable until checked against the publications."
+  - "Header says length 40.6 cm and width 94 cm; Saffire-III gives length 94 and width 40.6 for the same sample. Kept as written."
+columns:
+  Sample Number: {field: test_label}
+  Material: {field: fuel_raw}
+  Sample Thickness (cm): {field: thickness_mm, parser: number, unit: cm}
+  Sample Length (cm): {variable: sample_length, parser: number, unit: cm}
+  Sample Width (cm): {variable: sample_width, parser: number, unit: cm}
+  Air Flow (cm/s): {field: flow_velocity_cm_s, parser: number, unit: cm/s}
+  Percent O2: {field: o2_mole_frac, parser: number, unit: '%'}
+  Ignition Power (W): {variable: ignition_power, parser: number, unit: W}
+  Ignition Time (s): {variable: ignition_time, parser: number, unit: s}
+  Burn Time (s): {field: burn_time_s, parser: number, unit: s}
+  Flow Direction: {field: flow_direction, parser: enum, map: {Concurrent: concurrent, Opposed: opposed}}
+  Camera 1: {variable: camera_file}
+  Camera 2: {variable: camera_file}

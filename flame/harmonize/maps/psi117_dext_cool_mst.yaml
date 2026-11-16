@@ -1,0 +1,39 @@
+table_id: psi117_dext_cool_mst
+psi_id: PSI-117
+grain: published_point
+title: n-Dodecane cool-flame extinction diameter versus pressure, individual droplets (Microgravity Sci. Technol. 2024, Fig. 5)
+source:
+  file: files/PSI-117/Analyzed Data/PSI-117_Analyzed Data_MST_2024_Dext.csv
+  usecols:
+  - 6
+  - 7
+constants:
+  fuel_phase: liquid
+  geometry: droplet
+  oxidizer_location: ambient
+  o2_mole_frac: 0.21
+  n2_mole_frac: 0.79
+  fuel_raw: n-dodecane
+  char_diameter_mm: 4.0
+label:
+- Pressure
+- Dext_cool_Expt
+keep_if:
+- column: Dext_cool_Expt
+  regex: \d
+  reason: empty row of the block
+semantic_notes:
+- Initial diameter 4 mm is the nominal value from the ReadMe, declared as a constant.
+- Ground re-analysis of ISS droplet flights (FLEX, FLEX-2, CFI). Points digitised from the publication figures, stored as published_point in campaigns.parquet, never counted as tests.
+- Oxygen 0.21 and nitrogen 0.79 are not in the file; they come from the investigation ReadMe (ReadMe_List_of_Data.xlsx) and are declared here as constants.
+- 'Model / simulation columns of the same file are not loaded: only experimental points.'
+- 'gravity_g is null: PSI-117 has no flightProgram in its metadata (ground investigation), although the droplets burned on the ISS.'
+columns:
+  Pressure:
+    field: pressure_kpa
+    parser: number
+    unit: atm
+  Dext_cool_Expt:
+    variable: extinction_diameter_cool
+    parser: number
+    unit: mm

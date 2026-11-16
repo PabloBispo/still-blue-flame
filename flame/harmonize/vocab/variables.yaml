@@ -1,0 +1,112 @@
+# Controlled vocabulary of measurement variables (measurements.parquet).
+# A source column may only be mapped to a variable declared here.
+# category = semantic concept the variable belongs to; this is what lets columns
+# from different investigations be compared.
+variables:
+  # --- ambient composition / gas analysis ---
+  o2_setpoints: {category: ambient.composition, unit: mole fraction, description: Oxygen mole fractions run during a test day or planned in a matrix.}
+  co2_mole_frac_initial: {category: ambient.composition, unit: mole fraction, description: CO2 in the chamber before the test (gas analyser).}
+  co2_mole_frac_final: {category: emission.gas, unit: mole fraction, description: CO2 in the chamber after the test. Combustion product.}
+  co_ppm_initial: {category: ambient.composition, unit: ppm, description: CO in the chamber before the test.}
+  co_ppm_final: {category: emission.gas, unit: ppm, description: CO in the chamber after the test. Combustion product; sensor saturates ('OR').}
+  co2_partial_pressure: {category: ambient.composition, unit: kPa, description: Cabin CO2 partial pressure reported by the vehicle.}
+  fuel_mole_frac_final: {category: ambient.composition, unit: mole fraction, description: Fuel mole fraction of the ambient after the test (inverse flames).}
+  atmosphere_text: {category: ambient.composition, unit: null, description: Atmosphere description as free text.}
+  pressure_final: {category: ambient.pressure, unit: kPa, description: Chamber pressure after the test.}
+  pressure_mean: {category: ambient.pressure, unit: kPa, description: Mean chamber pressure during the test.}
+  pressure_setpoints: {category: ambient.pressure, unit: kPa, description: Pressures planned in a test matrix.}
+  ambient_temperature: {category: ambient.temperature, unit: K, description: Ambient temperature.}
+  # --- flow ---
+  flow_velocity_seq: {category: flow.velocity, unit: cm/s, description: 'Sequence of flow velocities set during one test (operator steps the flow down, often to extinction).'}
+  flow_velocity_range: {category: flow.velocity, unit: cm/s, description: Range of flow velocities planned.}
+  fan_display_seq: {category: flow.control, unit: null, description: 'Fan display readings during the test (instrument units; values flagged potentiometer_setting are pot settings, a different scale).'}
+  flow_restrictor: {category: flow.control, unit: null, description: Flow restrictor installed (0, 1 or 2).}
+  fuel_mass_flow: {category: flow.fuel, unit: mg/s, description: Fuel mass flow rate.}
+  hc_fuel_mass_flow: {category: flow.fuel, unit: mg/s, description: Hydrocarbon mass flow rate (fuel without diluent).}
+  fuel_flow_sccm: {category: flow.fuel, unit: sccm, description: Fuel volumetric flow rate at standard conditions.}
+  o2_mass_flow: {category: flow.oxidizer, unit: mg/s, description: Oxygen mass flow rate through the burner (inverse flames).}
+  n2_mass_flow: {category: flow.diluent, unit: mg/s, description: Nitrogen mass flow rate through the burner.}
+  total_mass_flow: {category: flow.total, unit: mg/s, description: Total mass flow rate through the burner.}
+  mfc_fuel: {category: flow.control, unit: null, description: Fuel mass flow controller identifier / range.}
+  mfc_n2: {category: flow.control, unit: null, description: Nitrogen mass flow controller identifier / range.}
+  gn2_suppression: {category: suppression, unit: null, description: Gaseous nitrogen suppression settings and readings (pot, display).}
+  # --- sample / hardware ---
+  sample_number: {category: sample.identity, unit: null, description: Sample serial number.}
+  sample_length: {category: sample.geometry, unit: cm, description: Sample length.}
+  sample_width: {category: sample.geometry, unit: cm, description: Sample width.}
+  sample_thickness_text: {category: sample.geometry, unit: null, description: Thickness text when it is not a single number.}
+  sample_position: {category: sample.geometry, unit: null, description: Sample position in the duct.}
+  droplet_d0: {category: sample.geometry, unit: mm, description: Initial droplet diameter.}
+  droplet_d0_range: {category: sample.geometry, unit: mm, description: Range of initial droplet diameters planned.}
+  nozzle_diameter: {category: hardware.burner, unit: mm, description: Fuel nozzle inner diameter.}
+  burner_size: {category: hardware.burner, unit: mm, description: Burner diameter.}
+  fiber_supported: {category: hardware.setup, unit: null, description: Droplet tethered on a fibre (Yes/No).}
+  mesh_polarity: {category: hardware.setup, unit: null, description: Polarity of the electric-field mesh.}
+  hardware_description: {category: hardware.setup, unit: null, description: Hardware used in the session.}
+  sampled_location: {category: hardware.setup, unit: null, description: Where the aerosol sample was taken.}
+  igniter: {category: ignition, unit: null, description: Igniter identifier.}
+  ignition_power: {category: ignition, unit: W, description: Igniter power.}
+  ignition_time: {category: ignition, unit: s, description: Igniter on-time.}
+  ignition_class: {category: ignition, unit: null, description: 'Ignition result as written (Yes / No / flash).'}
+  ignition_time_gmt: {category: timing, unit: null, description: GMT clock time of ignition.}
+  flame_off_time_gmt: {category: timing, unit: null, description: GMT clock time the flame went out.}
+  test_time_text: {category: timing, unit: null, description: Start time / GMT as written.}
+  # --- outcome / flame behaviour ---
+  n_flames_ignited: {category: outcome, unit: count, description: Number of flames ignited during the test day.}
+  extinction_diameter: {category: outcome.extinction, unit: mm, description: Droplet diameter at visible (hot) flame extinction.}
+  extinction_diameter_cool: {category: outcome.extinction, unit: mm, description: Droplet diameter at cool-flame extinction.}
+  burning_rate_constant: {category: outcome.burning, unit: mm2/s, description: Droplet burning rate constant K (hot flame).}
+  burning_rate_constant_cool: {category: outcome.burning, unit: mm2/s, description: Droplet burning rate constant in the cool-flame regime.}
+  hot_flame_burn_time: {category: outcome.burning, unit: s, description: Hot-flame burn time.}
+  reignitions: {category: outcome, unit: count, description: Number of reignitions.}
+  cool_flame: {category: outcome, unit: null, description: Cool flame observation as written.}
+  flame_color: {category: outcome, unit: null, description: Flame colour observation.}
+  burn_length_ug: {category: outcome.spread, unit: cm, description: Burn length in microgravity.}
+  burn_length_1g: {category: outcome.spread, unit: cm, description: Burn length of the same material in normal gravity (ground reference).}
+  spread_rate_ug: {category: outcome.spread, unit: mm/s, description: Flame spread rate in microgravity.}
+  spread_rate_1g: {category: outcome.spread, unit: mm/s, description: Flame spread rate in normal gravity (ground reference).}
+  weight_loss_rate: {category: outcome.burning, unit: mg/s, description: Sample mass loss rate.}
+  # --- thermochemistry (computed by the investigators) ---
+  adiabatic_flame_temp: {category: thermochemistry, unit: K, description: Adiabatic flame temperature reported by the PI.}
+  stoich_mixture_fraction: {category: thermochemistry, unit: '1', description: Stoichiometric mixture fraction Zst reported by the PI.}
+  # --- diagnostics ---
+  peak_burner_temp: {category: diagnostic.temperature, unit: K, description: Peak burner temperature.}
+  radiometer_gain: {category: diagnostic.radiometer, unit: null, description: Radiometer gain setting(s).}
+  radiometer_display: {category: diagnostic.radiometer, unit: null, description: Radiometer reading as written.}
+  radiation_metric: {category: diagnostic.radiometer, unit: null, description: 'Radiometer-derived quantities from the CFI summary sheet (instrument units).'}
+  tfp_used: {category: diagnostic.pyrometry, unit: null, description: Thin-filament pyrometry used (Yes/No).}
+  frames_shot: {category: diagnostic.imaging, unit: null, description: Number of still frames shot.}
+  analysis_status: {category: diagnostic.status, unit: null, description: Whether the PI completed the analysis of the test.}
+  # --- smoke / aerosol (detection) ---
+  heater_resistance_ratio: {category: smoke.generation, unit: '1', description: 'Rt/R0, heater resistance ratio (proxy of sample temperature).'}
+  smoke_duration: {category: smoke.generation, unit: s, description: Smoke generation duration.}
+  aging_time_primary: {category: smoke.aging, unit: s, description: Primary aging time of the smoke.}
+  mixing_time_primary: {category: smoke.aging, unit: s, description: Primary mixing time.}
+  aging_time_net: {category: smoke.aging, unit: s, description: Net aging time.}
+  aging_duration: {category: smoke.aging, unit: s, description: Aging duration.}
+  # --- descriptive ---
+  description: {category: descriptive, unit: null, description: Free-text description of the row.}
+  reference_link: {category: descriptive, unit: null, description: Publication link for a data product.}
+  figure_id: {category: descriptive, unit: null, description: Figure in the reference where the data appear.}
+  fuel_conc_range: {category: flow.fuel, unit: null, description: Range of fuel concentrations run during the day.}
+  camera_file: {category: diagnostic.imaging, unit: null, description: Camera / video identifier.}
+  # --- test script logs (ACME per-test files) ---
+  fuel_flow_setpoint: {category: flow.fuel, unit: sccm, description: 'Fuel-bottle flow setpoint during the test, from the as-run script file (controller units, N2-equivalent standard flow).'}
+  n2_flow_setpoint: {category: flow.diluent, unit: sccm, description: 'Nitrogen flow setpoint during the test, from the as-run script file.'}
+  oxidizer_flow_setpoint: {category: flow.oxidizer, unit: sccm, description: 'Oxidizer flow setpoint during the test (inverse flames), from the as-run script file.'}
+  constant_flow_time: {category: timing, unit: s, description: Planned duration of the constant-flow phase.}
+  flow_timeout: {category: timing, unit: s, description: Flow timeout of the test script.}
+  burner_temp_limit: {category: diagnostic.temperature, unit: K, description: Burner temperature limit that aborts the test.}
+  script_start_timestamp: {category: timing, unit: null, description: Start of the test script (date and GMT time).}
+  ignition_timestamp: {category: timing, unit: null, description: Timestamp of ignition and igniter retraction.}
+  extinction_timestamp: {category: timing, unit: null, description: Timestamp at which the script detected flame extinction. Empty when no extinction was detected.}
+  flow_off_timestamp: {category: timing, unit: null, description: Timestamp at which the mass flow controllers were turned off.}
+  log_failure_reason: {category: outcome, unit: null, description: 'Reason the test point ended early, as written by the script (e.g. EXTINCTION DETECTED).'}
+  ignition_to_end: {category: timing, unit: s, description: 'Seconds from the ignition command to extinction detected (or to flow off when no extinction was detected), from the script log. Includes the ignition phase: about 16 s longer than the burn time the PI reports for CFI-G.'}
+  # --- read from video by flame.video (marts/bass2_video_measurements.parquet, flag from_video; not in measurements.parquet) ---
+  fan_display_video_seq: {category: flow.control, unit: null, description: 'Fan display plateaus read from the video overlay, in order, with the time span of each in value_text. Instrument units.'}
+  flow_velocity_video_seq: {category: flow.velocity, unit: cm/s, description: 'Air speed of each fan plateau, converted with the fan calibration closest in date. Absent when the reading is outside the calibrated range.'}
+  radiometer_decay_onset: {category: video.event, unit: s, description: 'Time from the start of the video at which the radiometer reading starts its final fall. The radiometer also sees the hot sample, so this lags the flame.'}
+  flow_at_radiometer_decay: {category: flow.velocity, unit: cm/s, description: 'Air speed (fan reading converted by calibration) when the radiometer starts its final fall.'}
+  camera_extinction_time: {category: video.event, unit: s, description: 'Time from the start of the video at which the camera stops seeing the flame. Present only where the video reader marks the camera as reliable.'}
+  video_duration: {category: video.event, unit: s, description: Duration of the video file.}

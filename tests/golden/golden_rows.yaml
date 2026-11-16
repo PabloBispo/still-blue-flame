@@ -1,0 +1,53 @@
+# Golden rows: expected gold values for hand-picked source rows.
+# `status: machine_checked` = expectation written from the raw cell text shown in raw_json.
+# A human still has to confirm each row against the PSI document / publication and set status: human_verified.
+- uid: PSI-159:cfig_inverse:21196-A1
+  status: machine_checked
+  expect: {fuel: ethane, fuel_mole_frac: 0.2981, o2_mole_frac: 0.21, pressure_kpa: 110.0, ignited: false, outcome: no_ignition, burn_time_s: 0.0, oxidizer_location: burner_stream, gravity_g: 0.0}
+- uid: PSI-159:cfig_normal:21088A1
+  status: machine_checked
+  expect: {fuel: ethane, fuel_mole_frac: 1.0, o2_mole_frac: 0.3939, pressure_kpa: 94.43956, ppo2_kpa: 37.1997, ignited: true, outcome: self_extinguished, burn_time_s: 50.0}
+- uid: PSI-10:flame_design_normal:19115A1
+  status: machine_checked
+  expect: {fuel: ethylene, o2_mole_frac: 0.207128374, o2_mole_frac_final: 0.206202891, pressure_kpa: 102.525095}
+- uid: PSI-10:flame_design_inverse:21328A1
+  status: machine_checked
+  expect: {fuel: ethylene, fuel_mole_frac: 0.271563399, o2_mole_frac: 0.37082819, pressure_kpa: 101.146143, ppo2_kpa: null}
+- uid: PSI-69:flex:20CAL08
+  status: machine_checked
+  expect: {fuel: methanol, o2_mole_frac: 0.21, n2_mole_frac: 0.79, co2_mole_frac: 0.0, diluent: N2, pressure_kpa: 101.018382, char_diameter_mm: 1.69, outcome: disruption, burn_time_s: 4.3, test_date: '2009-03-05'}
+  measurements: {extinction_diameter: 0.89, burning_rate_constant: 0.52}
+- uid: PSI-26:bass:1-1
+  status: machine_checked
+  expect: {fuel: SIBAL (cotton-fiberglass), o2_mole_frac: 0.221, pressure_kpa: 98.28525, ppo2_kpa: 21.721, flow_velocity_cm_s: 10.0, test_date: '2012-03-30'}
+- uid: PSI-25:bass2:O1
+  status: machine_checked
+  expect: {fuel: PMMA, geometry: rod, char_diameter_mm: 6.35, o2_mole_frac: 0.222, o2_mole_frac_final: 0.217, flow_velocity_cm_s: 20.0, pi: Olson, test_date: '2014-02-18', pressure_kpa: null}
+  measurements: {co2_mole_frac_final: 0.0085, co_ppm_final: 51.0}
+- uid: PSI-25:bass2:O4
+  status: machine_checked
+  expect: {char_diameter_mm: 9.525, o2_mole_frac: 0.148, o2_mole_frac_final: 0.136}
+  measurements: {co_ppm_final: 1000.0, co_ppm_initial: 290.0, co2_mole_frac_final: 0.0172}
+- uid: PSI-25:bass2:B2
+  status: machine_checked
+  expect: {o2_mole_frac: 0.222, o2_mole_frac_final: 0.016, thickness_mm: 0.2}
+  flags: [suspect_o2_drop]
+- uid: PSI-39:cfi:1206
+  status: machine_checked
+  expect: {fuel: n-dodecane, o2_mole_frac: 0.21, n2_mole_frac: 0.79, pressure_kpa: 101.325, char_diameter_mm: 4.039, test_date: '2017-03-09'}
+  measurements: {extinction_diameter: 3.577, extinction_diameter_cool: 0.497, ignition_time: 3.7}
+- uid: PSI-98:saffire1:S1
+  status: machine_checked
+  expect: {fuel: SIBAL (cotton-fiberglass), thickness_mm: 3.7, o2_mole_frac: 0.216, flow_velocity_cm_s: 20.0, flow_direction: concurrent, burn_time_s: 420.0}
+  flags: [range_midpoint]
+- uid: PSI-99:saffire2:2-5
+  status: machine_checked
+  expect: {fuel: SIBAL (cotton-fiberglass), o2_mole_frac: 0.221, flow_velocity_cm_s: 20.0, burn_time_s: 145.0, thickness_mm: 37.0}
+  measurements: {burn_length_ug: 29.0, spread_rate_ug: 2.1}
+  flags: [suspect_leading_zero, approx]
+- uid: PSI-100:saffire3:S2
+  status: machine_checked
+  expect: {thickness_mm: 3.3, flow_velocity_cm_s: 30.0, flow_direction: opposed, o2_mole_frac: null}
+- uid: PSI-101:same_r:51
+  status: machine_checked
+  expect: {fuel: Kapton, flow_velocity_cm_s: 8.1, ignited: null, outcome: null}

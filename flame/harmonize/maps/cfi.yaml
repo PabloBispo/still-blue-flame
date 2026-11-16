@@ -1,0 +1,52 @@
+table_id: cfi
+psi_id: PSI-39
+grain: test
+title: Cool Flames Investigation, droplet tests (PI data summary workbook)
+source:
+  file: files/PSI-39/Science Documents/PSI-39_Science Documents_CFI_DataSummary_Spreadsheet_Jan2021.xlsx
+  sheet: Master Sheet
+  join:
+    - {sheet: DATA, key: Flex Number}
+    - {sheet: Igniter, key: Flex Number}
+    - {sheet: Comments, key: Flex Number}
+supersedes:
+  - {file: files/PSI-39/Experimental table/PSI-39_Experimental table_CFI.csv, reason: 'The PSI experimental table has 87 rows and 10 columns; the PI workbook has the same columns for 227 tests plus the analysed results.'}
+constants: {fuel_phase: liquid, geometry: droplet, oxidizer_location: ambient}
+label: [Flex Number]
+semantic_notes:
+  - Sheets Camera Settings and Graphs are not loaded (camera configuration only).
+columns:
+  Flex Number: {field: test_label}
+  Test Date: {field: test_date, parser: date}
+  Local Time: {variable: test_time_text}
+  CIR: {variable: camera_file}
+  Pressure: {field: pressure_kpa, parser: number, unit: atm}
+  Oxygen: {field: o2_mole_frac, parser: number, unit: mole_frac}
+  Nitrogen: {field: n2_mole_frac, parser: number, unit: mole_frac}
+  Helium: {field: he_mole_frac, parser: number, unit: mole_frac}
+  Fiber: {variable: fiber_supported}
+  Fuel: {field: fuel_raw}
+  'DATA::D0 ( mm )':
+    - {field: char_diameter_mm, parser: number, unit: mm}
+    - {variable: droplet_d0, parser: number, unit: mm}
+  'DATA::Dext, hot ( mm )': {variable: extinction_diameter, parser: number, unit: mm}
+  'DATA::khot ( mm^2/s )': {variable: burning_rate_constant, parser: number, unit: mm2/s}
+  'DATA::kcool ( mm^2/s )': {variable: burning_rate_constant_cool, parser: number, unit: mm2/s}
+  'DATA::Dext,cool ( mm )': {variable: extinction_diameter_cool, parser: number, unit: mm}
+  'DATA::Pressure (atm)': {ignore: duplicate of Master Sheet Pressure}
+  'DATA::Reignitions': {variable: reignitions, parser: number, unit: count}
+  'DATA::Extrap CF?': {variable: cool_flame}
+  'DATA::HF Burn Time': {variable: hot_flame_burn_time, parser: number, unit: s, flags: [unit_assumed]}
+  'DATA::Peak HF Rad': {variable: radiation_metric, parser: number}
+  'DATA::Peak Water Vapor Rad': {variable: radiation_metric, parser: number}
+  'DATA::Rad Ratio': {variable: radiation_metric, parser: number}
+  'DATA::2.5mm rad': {variable: radiation_metric, parser: number}
+  'DATA::2.5mm narrow': {variable: radiation_metric, parser: number}
+  'DATA::CF Rad Ratio': {variable: radiation_metric, parser: number}
+  'DATA::2.5mm CF': {variable: radiation_metric, parser: number}
+  'DATA::2.5mm time': {variable: radiation_metric, parser: number}
+  'DATA::Actual D': {variable: radiation_metric, parser: number}
+  'DATA::Completed Analysis?': {variable: analysis_status}
+  'Igniter::Ignition Power ( W )': {variable: ignition_power, parser: number, unit: W}
+  'Igniter::Ignition Time ( ms )': {variable: ignition_time, parser: number, unit: ms}
+  'Comments::Comments': {field: notes}

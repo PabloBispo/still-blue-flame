@@ -1,0 +1,35 @@
+# Curated attributes that PSI metadata does not carry.
+# pillar: which fire-safety control the investigation informs most directly.
+#   prevention   material flammability, ignition and flame-spread limits
+#   detection    smoke / aerosol generation and sensing
+#   suppression  extinction, diluents, extinguishing agents
+#   fundamentals flame science without a direct control application
+# These are editorial judgements made by the team from the PSI objective text. Review before quoting.
+# Rule applied in the 15/11 review: the primary pillar must be supported by the stated objective;
+# relevance that is our own reading goes to pillar_secondary.
+basis: curated by Still Blue from the PSI objective and approach text
+investigations:
+  PSI-10: {pillar: fundamentals, rationale: 'Soot-inception limits of spherical and coflow diffusion flames versus flow, inert and pressure. No direct control application stated.'}
+  PSI-20: {pillar: prevention, rationale: Burner emulates burning condensed fuels to study material flammability up to 40% O2.}
+  PSI-21: {pillar: fundamentals, rationale: Structure and sooting of co-flow laminar diffusion flames.}
+  PSI-22: {pillar: fundamentals, rationale: Electric-field effects on flames.}
+  PSI-23: {pillar: fundamentals, pillar_secondary: suppression, rationale: Spherical flame structure and extinction.}
+  PSI-25: {pillar: prevention, pillar_secondary: suppression, rationale: Flammability and extinction limits of solid samples versus O2 and flow.}
+  PSI-26: {pillar: prevention, pillar_secondary: suppression, rationale: 'First stated objective is to bridge NASA-STD-6001 Test 1 and actual material flammability in microgravity; nitrogen suppression is the second line of work (25 of 121 test notes mention N2).'}
+  PSI-39: {pillar: fundamentals, pillar_secondary: prevention, rationale: 'Objectives are droplet cool-flame behaviour versus pressure and helium dilution. Fire-safety relevance is indirect: a cool flame persisting after visible extinction is a reignition hazard.'}
+  PSI-47: {pillar: detection, rationale: Feasibility of aerosol instruments in the cabin.}
+  PSI-60: {pillar: fundamentals, pillar_secondary: detection, rationale: 'Soot formation in 0 g versus 1 g flames from SPICE images. Relevant to smoke production, not to a detector.'}
+  PSI-62: {pillar: prevention, rationale: Modelling of concurrent flame spread over solids.}
+  PSI-68: {pillar: fundamentals, pillar_secondary: suppression, rationale: 'Stated goal is benchmark data for real-fuel and bi-component droplets (combustor conditions); extinction in diluted atmospheres is carried over from FLEX.'}
+  PSI-69: {pillar: suppression, pillar_secondary: prevention, rationale: 'Objective names the effectiveness of gaseous suppressants (CO2, He, SF6) and the flammability limits of liquid fuels in microgravity.'}
+  PSI-98: {pillar: prevention, rationale: Large-scale flame spread over a spacecraft-relevant fabric.}
+  PSI-99: {pillar: prevention, rationale: Flammability of nine materials in microgravity against 1 g references.}
+  PSI-100: {pillar: prevention, rationale: Large-scale flame spread at higher flow.}
+  PSI-101: {pillar: detection, rationale: Smoke particle properties from overheated spacecraft materials, for detector design.}
+  PSI-102: {pillar: detection, rationale: Smoke particle properties from overheated spacecraft materials.}
+  PSI-106: {pillar: fundamentals, rationale: Lifted and attached co-flow flame structure.}
+  PSI-107: {pillar: fundamentals, pillar_secondary: detection, rationale: 'Laminar smoke point of non-buoyant jet flames: when a flame starts to emit soot. Informs smoke production, not detector design.'}
+  PSI-115: {pillar: detection, rationale: Use of SAME data for smoke modelling.}
+  PSI-117: {pillar: fundamentals, pillar_secondary: prevention, rationale: 'Fate of established droplet cool flames under thermal and convective perturbation (ground analysis of FLEX data).'}
+  PSI-142: {pillar: fundamentals, pillar_secondary: prevention, rationale: Cool flame transition limits (ground laboratory).}
+  PSI-159: {pillar: fundamentals, pillar_secondary: prevention, rationale: 'Objective is to find where cool diffusion flames occur for gaseous fuels. Used here for flame sustainment versus O2 and pressure, which is a prevention question, but that is our reading, not the stated objective.'}

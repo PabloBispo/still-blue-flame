@@ -1,0 +1,26 @@
+table_id: spice
+psi_id: PSI-107
+grain: test
+title: SPICE, smoke point of co-flow laminar jet flames
+source:
+  file: files/PSI-107/Experimental table/PSI-107_Experimental table_Spice.csv
+constants: {fuel_phase: gas, geometry: coflow_jet, flame_type: normal, oxidizer_location: ambient, flow_direction: coflow}
+label: [GMT date, GMT ignition]
+label_append_row: true
+semantic_notes:
+  - One row is one flow condition of a flame; several rows share the same ignition time, so the source row number is part of the id.
+  - burn_time_s is flame-off minus ignition clock time, i.e. the duration of the whole flame, repeated on its rows.
+  - The co-flow is cabin air; the table does not report O2 or pressure, so both stay null.
+  - Percentages in the fuel label (e.g. '75 % Propylene') are the fuel fraction of the fuel stream.
+columns:
+  GMT date: {field: campaign_day}
+  GMT ignition: {variable: ignition_time_gmt}
+  GMT Flame Off: {variable: flame_off_time_gmt}
+  Fuel: {field: fuel_raw}
+  Nozzle (mm):
+    - {field: char_diameter_mm, parser: number, unit: mm}
+    - {variable: nozzle_diameter, parser: number, unit: mm}
+  Fuel Rate (sccm): {variable: fuel_flow_sccm, parser: number, unit: sccm}
+  Fuel Rate (mg/s): {variable: fuel_mass_flow, parser: number, unit: mg/s}
+  HC Fuel Rate (mg/s): {variable: hc_fuel_mass_flow, parser: number, unit: mg/s}
+  Air Rate (cm/s): {field: flow_velocity_cm_s, parser: number, unit: cm/s}

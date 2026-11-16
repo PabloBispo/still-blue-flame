@@ -1,0 +1,20 @@
+table_id: acme_bre
+psi_id: PSI-20
+grain: test_day
+title: ACME BRE (Burning Rate Emulator), summary by test day
+source:
+  file: files/PSI-20/Experimental table/PSI-20_Experimental table_ACME BRE.csv
+constants: {fuel_phase: gas, geometry: flat_burner, flame_type: normal, oxidizer_location: ambient}
+label: [Year, Month, Date]
+semantic_notes:
+  - One row per test day, with the number of flames ignited. Not test-level; goes to campaigns.parquet.
+  - "Oxygen cells '3400%' and '2100%' are 34 and 21 mis-formatted as percent by the spreadsheet. They fail the range check and are listed in rejects.csv, not corrected."
+columns:
+  Year: {ignore: part of the label}
+  Month: {ignore: part of the label}
+  Date: {ignore: part of the label}
+  Burner Size (mm): {variable: burner_size, parser: number, unit: mm}
+  Fuel Bottle: {field: fuel_raw}
+  Oxygen Conc (percent): {variable: o2_setpoints, parser: multi, unit: '%'}
+  Flames Ignited: {variable: n_flames_ignited, parser: number, unit: count}
+  Notes: {field: notes}

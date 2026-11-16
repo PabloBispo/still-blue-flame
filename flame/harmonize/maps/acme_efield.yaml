@@ -1,0 +1,22 @@
+table_id: acme_efield
+psi_id: PSI-22
+grain: test_day
+title: ACME E-FIELD Flames, summary by test day
+source:
+  file: files/PSI-22/Experimental table/PSI-22_Experimental table_ACME E-FIELD Flames.csv
+constants: {fuel_phase: gas, geometry: coflow_jet, flame_type: normal, oxidizer_location: ambient}
+label: [Test Day]
+ffill: [Test Day, Fuel Bottle]
+semantic_notes:
+  - "11 of the 32 rows are continuation lines: only 'Fuel Conc' is filled, for the test day above. Test Day and Fuel Bottle are forward-filled and flagged; every other cell of those rows stays null."
+columns:
+  Test Type: {variable: description}
+  Test Day: {field: campaign_day}
+  Year: {ignore: redundant with Test Day (YYDDD)}
+  Month: {ignore: redundant with Test Day (YYDDD)}
+  Date: {ignore: redundant with Test Day (YYDDD)}
+  Mesh Polarity: {variable: mesh_polarity}
+  Fuel Bottle: {field: fuel_raw}
+  Fuel Conc: {field: fuel_mole_frac, parser: number, unit: '%'}
+  Flames Ignited: {variable: n_flames_ignited, parser: number, unit: count}
+  Notes: {field: notes}

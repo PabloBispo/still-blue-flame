@@ -1,0 +1,21 @@
+table_id: acme_sflame
+psi_id: PSI-23
+grain: test_day
+title: ACME s-Flame (spherical flames), summary by test day
+source:
+  file: files/PSI-23/Experimental table/PSI-23_Experimental table_ACME s-Flame.csv
+constants: {fuel_phase: gas, geometry: spherical_burner, flame_type: normal, oxidizer_location: ambient}
+label: [Test Day*]
+semantic_notes:
+  - "Atmosphere and Fuel Bottle show drag-fill artifacts ('with N3', 'N4' ...). The diluent is N2."
+  - "Atmosphere is free text ('~30% and ~21% O2 with He'); kept as text, not split into numbers."
+columns:
+  Test Type: {variable: description}
+  Test Day*: {field: campaign_day}
+  Year: {ignore: redundant with Test Day (YYDDD)}
+  Month: {ignore: redundant with Test Day (YYDDD)}
+  Date: {ignore: redundant with Test Day (YYDDD)}
+  Atmosphere*: {variable: atmosphere_text}
+  Fuel Bottle: {field: fuel_raw}
+  Flames Ignited*: {variable: n_flames_ignited, parser: number, unit: count}
+  Notes: {field: notes}

@@ -1,0 +1,15 @@
+table_id: slice
+psi_id: PSI-106
+grain: test_day
+title: SLICE, fuels run by test day
+source:
+  file: files/PSI-106/Experimental table/PSI-106_Experimental table_Slice.csv
+constants: {fuel_phase: gas, geometry: coflow_jet, flame_type: normal, oxidizer_location: ambient, flow_direction: coflow}
+label: [Test Date]
+semantic_notes:
+  - Date cells carry trailing remarks; the leading YYYY-MMM-DD is parsed, the full text is kept in raw_json.
+columns:
+  Test Date:
+    - {field: test_date, parser: date}
+    - {field: notes}
+  Fuel Type: {field: fuel_raw}

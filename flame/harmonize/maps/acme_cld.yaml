@@ -1,0 +1,20 @@
+table_id: acme_cld
+psi_id: PSI-21
+grain: test_day
+title: ACME CLD Flame (Coflow Laminar Diffusion), summary by test day
+source:
+  file: files/PSI-21/Experimental table/PSI-21_Experimental table_CLD Flame.csv
+constants: {fuel_phase: gas, geometry: coflow_jet, flame_type: normal, oxidizer_location: ambient, flow_direction: coflow}
+label: [Test Day]
+semantic_notes:
+  - "Fuel Bottle shows a spreadsheet drag-fill artifact: '40% CH4' was dragged into CH5, CH6 ... CH14 and C2H4 into C2H5 ... C2H11. Normalised to methane / ethylene and flagged autofill_artifact."
+  - Test Day is formatted YYDDD.
+columns:
+  Test Type: {variable: description}
+  Test Day: {field: campaign_day}
+  Fuel MFC: {variable: mfc_fuel}
+  N2 MFC: {variable: mfc_n2}
+  Fuel Bottle: {field: fuel_raw}
+  Fuel conc. Range: {variable: fuel_conc_range}
+  Flames ignited: {variable: n_flames_ignited, parser: number, unit: count}
+  Notes: {field: notes}

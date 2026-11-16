@@ -1,0 +1,44 @@
+table_id: cfig_logs
+psi_id: PSI-159
+grain: test_log
+title: ACME CFI-G, per-test script files (as-run settings, timeline, comments) for tests that already have a row in the PI tables
+source:
+  format: kv_dir
+  dir: files/PSI-159/Raw Data
+  prefix: 'PSI-159_Raw Data_'
+constants: {fuel_phase: gas, geometry: spherical_burner}
+label: [testpoint]
+unlisted: {ignore: 'camera, fibre, igniter, PMT and script-timing configuration; kept in raw_json'}
+derive_text:
+  campaign_day: {column: testpoint, regex: '^(\d{5})'}
+derive:
+  'variable:ignition_to_end':
+    seconds_between:
+      - ['tp::Ignition and retraction', 'tp::Extinction detected']
+      - ['tp::Ignition and retraction', 'tp::MFCs off']
+derive_enum:
+  outcome:
+    - {match: {'tp::Reason': 'EXTINCTION'}, value: not_sustained}
+    - {match: {'tp::Reason': 'temperature limit'}, value: aborted_temperature_limit}
+    - {when: {'tp::Extinction detected': true}, value: not_sustained}
+    - {when: {'tp::Ignition and retraction': true, 'tp::MFCs off': true, 'tp::Extinction detected': false, 'tp::Reason': false}, value: flow_terminated}
+semantic_notes:
+  - Not new tests. The same test points are in cfig_normal and cfig_inverse (PI tables). These rows go to campaigns.parquet with grain test_log and join to the tests on the test label without spaces.
+  - Purpose: an independent, machine-written record of each test (timeline and flow setpoints) to check the PI tables, and the reference that validates the outcome rule used for s-Flame and Flame Design.
+  - outcome follows the same rule as acme_sflame_logs; ignition_to_end is a measurement, burn_time_s stays null.
+columns:
+  testpoint: {field: test_label}
+  source_files: {ignore: 'list of the files merged into this row; kept in raw_json'}
+  comments: {field: notes}
+  'asrun::fuelTestFlow1Slpm': {variable: fuel_flow_setpoint, parser: number, unit: slpm}
+  'asrun::oxidizerTestFlow1Slpm': {variable: oxidizer_flow_setpoint, parser: number, unit: slpm}
+  'asrun::nitrogenTestFlow1Slpm': {variable: n2_flow_setpoint, parser: number, unit: slpm}
+  'asrun::constantFlowTime1Sec': {variable: constant_flow_time, parser: number, unit: s}
+  'asrun::flowTimeoutSec': {variable: flow_timeout, parser: number, unit: s}
+  'tp::Script start':
+    - {field: test_date, parser: date}
+    - {variable: script_start_timestamp}
+  'tp::Ignition and retraction': {variable: ignition_timestamp}
+  'tp::Extinction detected': {variable: extinction_timestamp}
+  'tp::MFCs off': {variable: flow_off_timestamp}
+  'tp::Reason': {variable: log_failure_reason}

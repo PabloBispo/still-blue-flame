@@ -1,0 +1,26 @@
+table_id: flame_design_normal
+psi_id: PSI-10
+grain: test
+title: ACME Flame Design, normal flames
+source:
+  file: files/PSI-10/Experimental table/PSI-10_Experimental table_Flame Design_Normal Flame.csv
+constants: {fuel_phase: gas, geometry: spherical_burner, flame_type: normal, oxidizer_location: ambient}
+label: [Test]
+semantic_notes:
+  - "'RAMPED' means the flow was ramped during the test; there is no single value. Kept as text, flagged ramped."
+columns:
+  Flame Type: {ignore: 'constant; see constants.flame_type'}
+  Day: {field: campaign_day}
+  Fuel: {field: fuel_raw}
+  Test: {field: test_label}
+  Xfuel: {field: fuel_mole_frac, parser: number, unit: mole_frac, tokens: {RAMPED: {flag: ramped}, RAMP: {flag: ramped}}}
+  mfuel (mg/s): {variable: fuel_mass_flow, parser: number, unit: mg/s, tokens: {RAMPED: {flag: ramped}, RAMP: {flag: ramped}}}
+  mN2 (mg/s): {variable: n2_mass_flow, parser: number, unit: mg/s, tokens: {RAMPED: {flag: ramped}, RAMP: {flag: ramped}}}
+  mtot (mg/s): {variable: total_mass_flow, parser: number, unit: mg/s, tokens: {RAMPED: {flag: ramped}, RAMP: {flag: ramped}}}
+  XO2 (init): {field: o2_mole_frac, parser: number, unit: mole_frac}
+  XO2 (final): {field: o2_mole_frac_final, parser: number, unit: mole_frac}
+  pinit (atm): {field: pressure_kpa, parser: number, unit: atm}
+  pfinal (atm): {variable: pressure_final, parser: number, unit: atm}
+  pmean (atm): {variable: pressure_mean, parser: number, unit: atm}
+  mean Zst: {variable: stoich_mixture_fraction, parser: number, unit: '1', tokens: {RAMPED: {flag: ramped}, RAMP: {flag: ramped}}}
+  Tad (K): {variable: adiabatic_flame_temp, parser: number, unit: K, tokens: {RAMPED: {flag: ramped}, RAMP: {flag: ramped}}}

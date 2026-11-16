@@ -2,3 +2,9 @@ numpy
 scipy
 opencv-python-headless
 pytest
+pandas
+pyarrow
+pyyaml
+openpyxl
+
+# Dependencies are managed with uv: see pyproject.toml and uv.lock (uv sync; uv run ...).

@@ -1,0 +1,22 @@
+table_id: same_r
+psi_id: PSI-101
+grain: test
+title: SAME-R, smoke aerosol from overheated spacecraft materials
+source:
+  file: files/PSI-101/Experimental table/PSI-101_Experimental table_SAME-R.csv
+constants: {fuel_phase: solid, geometry: heated_sample, oxidizer_location: ambient}
+label: ['SAME Test #']
+semantic_notes:
+  - Pyrolysis smoke, not flaming combustion. ignited and outcome do not apply and stay null.
+  - "Dates are written without year ('21-Jul'); kept as text in campaign_day."
+columns:
+  Sample Type: {field: fuel_raw}
+  'SAME Test #': {field: test_label}
+  Description: {field: notes}
+  Date: {field: campaign_day}
+  Inlet velocity (cm/s): {field: flow_velocity_cm_s, parser: number, unit: cm/s}
+  Rt/R0: {variable: heater_resistance_ratio, parser: number, unit: '1'}
+  Duration (sec): {variable: smoke_duration, parser: number, unit: s}
+  Primary aging time (sec): {variable: aging_time_primary, parser: number, unit: s}
+  Primary mixing time (sec): {variable: mixing_time_primary, parser: number, unit: s}
+  Net aging time (sec): {variable: aging_time_net, parser: number, unit: s}

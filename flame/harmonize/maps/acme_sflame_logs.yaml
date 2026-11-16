@@ -1,0 +1,48 @@
+table_id: acme_sflame_logs
+psi_id: PSI-23
+grain: test
+title: ACME s-Flame, one row per test point rebuilt from the per-test script files (as-run settings, timeline, comments)
+source:
+  format: kv_dir
+  dir: files/PSI-23/Raw Data
+  prefix: 'PSI-23_Raw Data_'
+constants: {fuel_phase: gas, geometry: spherical_burner, flame_type: normal, oxidizer_location: ambient}
+label: [testpoint]
+unlisted: {ignore: 'camera, fibre, igniter, PMT and script-timing configuration; kept in raw_json'}
+inherit: {table_id: acme_sflame, fields: [fuel_raw]}
+derive_text:
+  campaign_day: {column: testpoint, regex: '^(\d{5})'}
+derive:
+  'variable:ignition_to_end':
+    seconds_between:
+      - ['tp::Ignition and retraction', 'tp::Extinction detected']
+      - ['tp::Ignition and retraction', 'tp::MFCs off']
+derive_enum:
+  outcome:
+    - {match: {'tp::Reason': 'EXTINCTION'}, value: not_sustained}
+    - {match: {'tp::Reason': 'temperature limit'}, value: aborted_temperature_limit}
+    - {when: {'tp::Extinction detected': true}, value: not_sustained}
+    - {when: {'tp::Ignition and retraction': true, 'tp::MFCs off': true, 'tp::Extinction detected': false, 'tp::Reason': false}, value: flow_terminated}
+semantic_notes:
+  - The PSI experimental table of s-Flame has 18 day summaries. These rows are the individual test points, rebuilt from the small text files PSI stores per test.
+  - "Test point ids are YYDDD + letter + number (19304A1 = day 304 of 2019). campaign_day is the YYDDD part and joins to the day summary, from which fuel_raw is inherited (flag inherited:fuel_raw)."
+  - "outcome is assigned by rule from the script timeline, not written by the investigators: 'EXTINCTION DETECTED' or an extinction timestamp -> not_sustained (failed ignition or self-extinction, the script cannot tell); ignition and flow-off timestamps with no extinction -> flow_terminated; burner temperature limit -> aborted_temperature_limit. Flag outcome_from_log. The rule is checked against the PI table of CFI-G, which uses the same script (see data-quality)."
+  - ignition_to_end (measurement) is extinction (or flow-off) minus the ignition command, 1 s resolution. It is not a burn time; burn_time_s stays null.
+  - Chamber oxygen and pressure are not in these files; they stay null. The day summary gives the atmosphere only as text.
+  - Flow setpoints are in controller units (standard litres per minute, nitrogen-equivalent), converted to sccm.
+columns:
+  testpoint: {field: test_label}
+  source_files: {ignore: 'list of the files merged into this row; kept in raw_json'}
+  comments: {field: notes}
+  'asrun::fuelBottleTestFlowRateN2Slpm': {variable: fuel_flow_setpoint, parser: number, unit: slpm}
+  'asrun::nitrogenTestFlowRateN2Slpm': {variable: n2_flow_setpoint, parser: number, unit: slpm}
+  'asrun::constantFlowTimeSec': {variable: constant_flow_time, parser: number, unit: s}
+  'asrun::flowTimeoutSec': {variable: flow_timeout, parser: number, unit: s}
+  'asrun::burnerTemperatureLimitC': {variable: burner_temp_limit, parser: number, unit: C}
+  'tp::Script start':
+    - {field: test_date, parser: date}
+    - {variable: script_start_timestamp}
+  'tp::Ignition and retraction': {variable: ignition_timestamp}
+  'tp::Extinction detected': {variable: extinction_timestamp}
+  'tp::MFCs off': {variable: flow_off_timestamp}
+  'tp::Reason': {variable: log_failure_reason}

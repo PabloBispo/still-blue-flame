@@ -1,0 +1,16 @@
+table_id: daft
+psi_id: PSI-47
+grain: session
+title: DAFT, aerosol instrument feasibility sessions
+source:
+  file: files/PSI-47/Experimental table/PSI-47_Experimental table_DAFT.csv
+constants: {oxidizer_location: ambient}
+label: [Session Name]
+semantic_notes:
+  - Detection-instrument test with a reference dust. No combustion. Goes to campaigns.parquet.
+columns:
+  Session Name: {field: test_label}
+  Actual Day: {field: campaign_day}
+  Hardware Description: {variable: hardware_description}
+  Sample Material: {field: fuel_raw}
+  Sampled Location: {variable: sampled_location}

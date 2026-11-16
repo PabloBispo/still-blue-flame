@@ -1,0 +1,18 @@
+table_id: flex2
+psi_id: PSI-68
+grain: test_matrix
+title: FLEX-2, planned test matrix (one row per fuel, conditions given as ranges)
+source:
+  file: files/PSI-68/Experimental table/PSI-68_Experimental table_Flex2.csv
+constants: {fuel_phase: liquid, geometry: droplet, oxidizer_location: ambient}
+label: [Sample (Fuel Type)]
+semantic_notes:
+  - Not test-level data. Each row describes the envelope of conditions for one fuel. Goes to campaigns.parquet.
+columns:
+  Sample (Fuel Type): {field: fuel_raw}
+  Initial Droplet Diameter (mm): {variable: droplet_d0_range, parser: number, unit: mm}
+  Ambient Gas Mixture: {variable: atmosphere_text}
+  Oxygen Mole Fraction: {variable: o2_setpoints, parser: multi, unit: mole_frac}
+  Ambient Pressure (atm): {variable: pressure_setpoints, parser: multi, unit: atm}
+  Ambient Temperature (C): {variable: ambient_temperature, parser: number, unit: C}
+  Flow Velocity (cm/s): {variable: flow_velocity_range, parser: number, unit: cm/s}

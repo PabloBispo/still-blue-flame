@@ -1,0 +1,35 @@
+table_id: bass2
+psi_id: PSI-25
+grain: test
+title: BASS-II, test matrices by principal investigator
+source:
+  file: files/PSI-25/Science Documents/PSI-25_Science Documents_BASS-II_Test.Matrices.xlsx
+  sheets: [Bhattacharjee, Ferkul, Miller, Olson, Fernandez-Pello, "T'ien"]
+  header_aliases: {'GMT 2014- (except last 3 tests from 2016)': 'GMT 2014-'}
+supersedes:
+  - {file: files/PSI-25/Experimental table/PSI-25_Experimental table_BASS-II.csv, reason: 'Same 129 tests. The workbook keeps list separators in the fan and air sequences that the CSV export replaced by spaces.'}
+constants: {fuel_phase: solid, oxidizer_location: ambient}
+sheet_field: pi
+label: [Test no.]
+semantic_notes:
+  - "'calibrated initial / final O2' are gas-analyser readings before and after the burn. The final value is a result, not a setpoint."
+  - "'Air display' is the duct air velocity in cm/s (BASS-II ReadMe); the sensor lags by about one minute. Cells hold the sequence set by the crew."
+  - "CO 'OR' means over range (sensor limit 1000 ppm). Stored as value 1000 with qualifier gt."
+  - Chamber pressure is not in the table. pressure_kpa stays null.
+columns:
+  Actual Date (for Video Display Date, add 1 for Leap Year): {field: test_date, parser: date}
+  GMT 2014-: {field: campaign_day}
+  Test no.: {field: test_label}
+  Sample no.: {variable: sample_number}
+  Material: {field: fuel_raw}
+  Flow restrictor: {variable: flow_restrictor}
+  Fan display: {variable: fan_display_seq, parser: sequence}
+  Air display: {field: flow_velocity_cm_s, variable: flow_velocity_seq, parser: sequence, unit: cm/s, flags: [unit_assumed]}
+  Radiometer gain (1000, 250, 50, 10): {variable: radiometer_gain}
+  total frames shot: {variable: frames_shot}
+  calibrated initial O2 % by vol: {field: o2_mole_frac, parser: number, unit: '%'}
+  calibrated final O2 % by vol: {field: o2_mole_frac_final, parser: number, unit: '%'}
+  Initial CO2 % by vol: {variable: co2_mole_frac_initial, parser: number, unit: '%'}
+  Final CO2 % by vol: {variable: co2_mole_frac_final, parser: number, unit: '%'}
+  Initial CO (ppm): {variable: co_ppm_initial, parser: number, unit: ppm, tokens: {OR: {value: 1000, qualifier: gt, flag: censored_over_range}}}
+  Final CO (ppm): {variable: co_ppm_final, parser: number, unit: ppm, tokens: {OR: {value: 1000, qualifier: gt, flag: censored_over_range}}}

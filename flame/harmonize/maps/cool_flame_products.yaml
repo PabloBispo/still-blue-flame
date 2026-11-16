@@ -1,0 +1,14 @@
+table_id: cool_flame_products
+psi_id: PSI-142
+grain: data_product
+title: Cool flame transitions (ground laboratory), index of published data products
+source:
+  file: files/PSI-142/Experimental table/PSI-142_Experimental table_Data Summary Table.csv
+label: [Data ID]
+semantic_notes:
+  - Not experimental conditions. Each row points to a figure of a publication. Goes to campaigns.parquet.
+columns:
+  Data ID: {field: test_label}
+  Data Description: {field: notes}
+  Reference Publication Link: {variable: reference_link}
+  Figure ID in Reference: {variable: figure_id}

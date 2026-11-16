@@ -1,0 +1,56 @@
+# Controlled vocabulary for fuels and sample materials.
+# First matching pattern wins (case-insensitive regex, searched in the raw text).
+# `implied: true` means the source text does not name the material; it follows from the
+# investigation's own convention and the record gets the flag material_implied.
+# `artifact: true` marks spreadsheet drag-fill artifacts (CH4 -> CH5, CH6 ...).
+fuels:
+  # ---- blends first (more specific) ----
+  - {pattern: 'H2.*CH4|CH4.*H2', fuel: hydrogen/methane blend, phase: gas, class: blend}
+  - {pattern: 'C12H26\s*/\s*iso-?dodecane', fuel: n-dodecane/iso-dodecane blend, phase: liquid, class: alkane}
+  - {pattern: 'heptane.*isooctane', fuel: n-heptane/iso-octane blend, phase: liquid, class: alkane}
+  - {pattern: 'propanol.*glycerol', fuel: propanol/glycerol blend, phase: liquid, class: alcohol}
+  - {pattern: 'pmma\s*&\s*nomex', fuel: PMMA + Nomex, phase: solid, class: polymer}
+  # ---- gases ----
+  - {pattern: '\bCH4\b|methane', fuel: methane, phase: gas, class: alkane}
+  - {pattern: '\bCH([5-9]|1\d)\b', fuel: methane, phase: gas, class: alkane, artifact: true}
+  - {pattern: '\bC2H4\b|ethylene', fuel: ethylene, phase: gas, class: alkene}
+  - {pattern: '\bC2H(5|[7-9]|1\d)\b', fuel: ethylene, phase: gas, class: alkene, artifact: true}
+  - {pattern: '\bC2H6\b|ethane', fuel: ethane, phase: gas, class: alkane}
+  - {pattern: '\bC3H8\b|propane', fuel: propane, phase: gas, class: alkane}
+  - {pattern: 'propylene|\bC3H6\b', fuel: propylene, phase: gas, class: alkene}
+  - {pattern: 'butane', fuel: n-butane, phase: gas, class: alkane}
+  - {pattern: '\bH2\b|hydrogen', fuel: hydrogen, phase: gas, class: hydrogen}
+  # ---- liquids ----
+  - {pattern: 'methanol', fuel: methanol, phase: liquid, class: alcohol}
+  - {pattern: 'ethanol', fuel: ethanol, phase: liquid, class: alcohol}
+  - {pattern: 'iso-?octane', fuel: iso-octane, phase: liquid, class: alkane}
+  - {pattern: 'n-octane', fuel: n-octane, phase: liquid, class: alkane}
+  - {pattern: 'heptane', fuel: n-heptane, phase: liquid, class: alkane}
+  - {pattern: 'C12H26|dodecane', fuel: n-dodecane, phase: liquid, class: alkane}
+  - {pattern: 'decane', fuel: n-decane, phase: liquid, class: alkane}
+  - {pattern: 'farnesane', fuel: farnesane, phase: liquid, class: alkane}
+  - {pattern: 'dibutyl phthalate', fuel: dibutyl phthalate, phase: liquid, class: ester}
+  # ---- solids ----
+  - {pattern: 'sibal|cotton-fiberglass', fuel: SIBAL (cotton-fiberglass), phase: solid, class: fabric}
+  - {pattern: 'nomex', fuel: Nomex, phase: solid, class: fabric}
+  - {pattern: 'ultem', fuel: Ultem (PEI), phase: solid, class: polymer}
+  - {pattern: 'japan wax', fuel: Japan wax, phase: solid, class: wax}
+  - {pattern: 'paraf+in|par+afin|wax|candle', fuel: paraffin wax, phase: solid, class: wax}
+  - {pattern: 'pmma', fuel: PMMA, phase: solid, class: polymer}
+  - {pattern: 'silicone', fuel: silicone, phase: solid, class: polymer}
+  - {pattern: 'kapton', fuel: Kapton, phase: solid, class: polymer}
+  - {pattern: 'teflon', fuel: Teflon (PTFE), phase: solid, class: polymer}
+  - {pattern: 'pyrell', fuel: Pyrell (polyurethane foam), phase: solid, class: polymer}
+  - {pattern: 'lampwick', fuel: lamp wick (cotton), phase: solid, class: fabric}
+  - {pattern: 'arizona road dust', fuel: Arizona road dust (non-fuel reference aerosol), phase: aerosol, class: reference}
+  # BASS / BASS-II shorthand: rods, films, slabs and spheres are PMMA (As Run matrix, sample kit)
+  - {pattern: '\brod\b|\bfilm\b|\bslab\b|sphere|spherical|micron|mm thick', fuel: PMMA, phase: solid, class: polymer, implied: true}
+
+# geometry hints read from the same text (first match wins)
+geometry:
+  - {pattern: 'candle', geometry: candle}
+  - {pattern: '\brod\b', geometry: rod}
+  - {pattern: 'sphere|spherical', geometry: sphere}
+  - {pattern: 'film', geometry: thin_film}
+  - {pattern: 'slab|thick|sheet', geometry: slab}
+  - {pattern: 'sibal|nomex|fabric', geometry: fabric_sheet}

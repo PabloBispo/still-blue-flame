@@ -4,3 +4,5 @@ __pycache__/
 .env
 .venv/
 *.mp4
+.vercel
+.env.local

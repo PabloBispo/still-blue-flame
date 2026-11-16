@@ -1,0 +1,49 @@
+table_id: flame_design_logs
+psi_id: PSI-10
+grain: test_log
+title: ACME Flame Design, per-test script files (as-run settings, timeline, comments) for tests that already have a row in the PI tables
+source:
+  format: kv_dir
+  dir: files/PSI-10/Raw Data
+  prefix: 'PSI-10_Raw Data_'
+constants: {fuel_phase: gas, geometry: spherical_burner}
+label: [testpoint]
+unlisted: {ignore: 'camera, fibre, igniter, PMT and script-timing configuration; kept in raw_json'}
+derive_text:
+  campaign_day: {column: testpoint, regex: '^(\d{5})'}
+derive:
+  'variable:ignition_to_end':
+    seconds_between:
+      - ['tp::Ignition and retraction', 'tp::Extinction detected']
+      - ['tp::Ignition and retraction', 'tp::MFCs off']
+derive_enum:
+  outcome:
+    - {match: {'tp::Reason': 'EXTINCTION'}, value: not_sustained}
+    - {match: {'tp::Reason': 'temperature limit'}, value: aborted_temperature_limit}
+    - {when: {'tp::Extinction detected': true}, value: not_sustained}
+    - {when: {'tp::Ignition and retraction': true, 'tp::MFCs off': true, 'tp::Extinction detected': false, 'tp::Reason': false}, value: flow_terminated}
+semantic_notes:
+  - Not new tests. The same test points are in flame_design_normal and flame_design_inverse (PI tables), which carry no outcome column. These rows go to campaigns.parquet with grain test_log and join to the tests on the test label without spaces.
+  - Purpose: outcome and burn time for Flame Design, which the PI tables do not report. The rule is validated on CFI-G, where the PI table has the outcome.
+  - Two script generations coexist: 2019 files use fuelBottleTestFlowRateN2Slpm / constantFlowTimeSec, 2021-2022 files use fuelTestFlow1Slpm / oxidizerTestFlow1Slpm / constantFlowTime1Sec. Both are mapped to the same variables.
+  - outcome follows the same rule as acme_sflame_logs; ignition_to_end is a measurement, burn_time_s stays null.
+columns:
+  testpoint: {field: test_label}
+  source_files: {ignore: 'list of the files merged into this row; kept in raw_json'}
+  comments: {field: notes}
+  'asrun::fuelTestFlow1Slpm': {variable: fuel_flow_setpoint, parser: number, unit: slpm}
+  'asrun::fuelBottleTestFlowRateN2Slpm': {variable: fuel_flow_setpoint, parser: number, unit: slpm}
+  'asrun::nitrogenTestFlowRateN2Slpm': {variable: n2_flow_setpoint, parser: number, unit: slpm}
+  'asrun::constantFlowTimeSec': {variable: constant_flow_time, parser: number, unit: s}
+  'asrun::burnerTemperatureLimitC': {variable: burner_temp_limit, parser: number, unit: C}
+  'asrun::oxidizerTestFlow1Slpm': {variable: oxidizer_flow_setpoint, parser: number, unit: slpm}
+  'asrun::nitrogenTestFlow1Slpm': {variable: n2_flow_setpoint, parser: number, unit: slpm}
+  'asrun::constantFlowTime1Sec': {variable: constant_flow_time, parser: number, unit: s}
+  'asrun::flowTimeoutSec': {variable: flow_timeout, parser: number, unit: s}
+  'tp::Script start':
+    - {field: test_date, parser: date}
+    - {variable: script_start_timestamp}
+  'tp::Ignition and retraction': {variable: ignition_timestamp}
+  'tp::Extinction detected': {variable: extinction_timestamp}
+  'tp::MFCs off': {variable: flow_off_timestamp}
+  'tp::Reason': {variable: log_failure_reason}

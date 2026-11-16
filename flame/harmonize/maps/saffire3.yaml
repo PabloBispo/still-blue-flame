@@ -1,0 +1,21 @@
+table_id: saffire3
+psi_id: PSI-100
+grain: test
+title: Saffire-III, large-scale flame spread at higher flow
+source:
+  file: files/PSI-100/Experimental table/PSI-100_Experimental table_SAFFIRE-3.csv
+constants: {fuel_phase: solid, geometry: fabric_sheet, oxidizer_location: ambient}
+label: [Sample Number]
+semantic_notes:
+  - "Thickness '.33 cm' is converted as written (3.3 mm). See the inconsistency note in saffire1."
+  - The table reports no oxygen fraction and no burn result.
+columns:
+  Sample Number: {field: test_label}
+  Material: {field: fuel_raw}
+  Sample Thickness: {field: thickness_mm, parser: number, unit: cm}
+  Sample Length: {variable: sample_length, parser: number, unit: cm}
+  Sample Width: {variable: sample_width, parser: number, unit: cm}
+  Air Flow: {field: flow_velocity_cm_s, parser: number, unit: cm/s}
+  Direction: {field: flow_direction, parser: enum, map: {Concurrent: concurrent, Opposed: opposed}}
+  Camera 1: {variable: camera_file}
+  Camera 2: {variable: camera_file}

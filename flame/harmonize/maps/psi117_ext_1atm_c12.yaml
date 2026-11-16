@@ -1,0 +1,51 @@
+table_id: psi117_ext_1atm_c12
+psi_id: PSI-117
+grain: published_point
+title: Droplet extinction diameters at 1 atm, n-dodecane (Proc. Combust. Inst. 2023, Fig. 3)
+source:
+  file: files/PSI-117/Analyzed Data/PSI-117_Analyzed Data_PROCI_2023_Alkane_Extinction_Diameter_1atm.csv
+  usecols:
+  - 20
+  - 21
+  - 22
+  - 23
+constants:
+  fuel_phase: liquid
+  geometry: droplet
+  oxidizer_location: ambient
+  o2_mole_frac: 0.21
+  n2_mole_frac: 0.79
+  fuel_raw: n-dodecane
+  pressure_kpa: 101.325
+label:
+- Do
+- Dext_HF
+keep_if:
+- column: Do
+  regex: \d
+  reason: empty row of the block
+semantic_notes:
+- These n-dodecane points are the same droplets as PSI-39 CFI tests (D0 4.039, Dext 3.577, cool 0.497 is Flex 1206).
+- Dext_CF = 0 is written in the source where no cool-flame extinction was measured; kept as 0.
+- Ground re-analysis of ISS droplet flights (FLEX, FLEX-2, CFI). Points digitised from the publication figures, stored as published_point in campaigns.parquet, never counted as tests.
+- Oxygen 0.21 and nitrogen 0.79 are not in the file; they come from the investigation ReadMe (ReadMe_List_of_Data.xlsx) and are declared here as constants.
+- 'Model / simulation columns of the same file are not loaded: only experimental points.'
+- 'gravity_g is null: PSI-117 has no flightProgram in its metadata (ground investigation), although the droplets burned on the ISS.'
+columns:
+  C12:
+    ignore: block label (Expt)
+  Do:
+  - field: char_diameter_mm
+    parser: number
+    unit: mm
+  - variable: droplet_d0
+    parser: number
+    unit: mm
+  Dext_HF:
+    variable: extinction_diameter
+    parser: number
+    unit: mm
+  Dext_CF:
+    variable: extinction_diameter_cool
+    parser: number
+    unit: mm

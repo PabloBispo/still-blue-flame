@@ -1,0 +1,29 @@
+table_id: flex
+psi_id: PSI-69
+grain: test
+title: FLEX, droplet combustion and extinction with diluents
+source:
+  file: files/PSI-69/Experimental table/PSI-69_Experimental table_FLEX.csv
+constants: {fuel_phase: liquid, geometry: droplet, oxidizer_location: ambient}
+label: [FLEX Identifier]
+semantic_notes:
+  - "Chemical subscripts were lost in the export: 'O' is O2, 'N' is N2, 'CO' is CO2 (values up to 0.70 rule out carbon monoxide). 'He' is helium."
+  - "'Burning rate; mm' is the burning rate constant K in mm2/s (unit truncated in the header)."
+columns:
+  'FLEX Test #': {ignore: 'running index; FLEX Identifier is the label'}
+  FLEX Identifier: {field: test_label}
+  Test Date: {field: test_date, parser: date}
+  Test GMT: {variable: test_time_text}
+  Fuel: {field: fuel_raw}
+  Ambient pressure; mmHg: {field: pressure_kpa, parser: number, unit: mmHg}
+  O initial ambient composition; mole fraction: {field: o2_mole_frac, parser: number, unit: mole_frac}
+  N initial ambient composition; mole fraction: {field: n2_mole_frac, parser: number, unit: mole_frac}
+  CO initial ambient composition; mole fraction: {field: co2_mole_frac, parser: number, unit: mole_frac}
+  He initial ambient composition; mole fraction: {field: he_mole_frac, parser: number, unit: mole_frac}
+  Droplet initial diameter; mm:
+    - {field: char_diameter_mm, parser: number, unit: mm}
+    - {variable: droplet_d0, parser: number, unit: mm}
+  Visible flame extinction diameter; mm: {variable: extinction_diameter, parser: number, unit: mm}
+  Burning rate; mm: {variable: burning_rate_constant, parser: number, unit: mm2/s, flags: [unit_assumed]}
+  Burn time; s: {field: burn_time_s, parser: number, unit: s}
+  Test end: {field: outcome, parser: enum, map: {Extinction: extinction, Disruption: disruption, Completion: burnout}}

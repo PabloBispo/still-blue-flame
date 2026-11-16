@@ -1,0 +1,27 @@
+table_id: flame_design_inverse
+psi_id: PSI-10
+grain: test
+title: ACME Flame Design, inverse flames
+source:
+  file: files/PSI-10/Experimental table/PSI-10_Experimental table_Flame Design_Inverse Flame.csv
+constants: {fuel_phase: gas, geometry: spherical_burner, flame_type: inverse, oxidizer_location: burner_stream, fuel_raw: C2H4}
+label: [Test]
+semantic_notes:
+  - "XO2 holds 'RAMP' (oxygen ramped during the test) in 9 rows and 'LOW O2' in 2; no single value exists, o2_mole_frac stays null."
+  - The table has no fuel column. The fuel is ethylene, stated by the column names XC2H4 initial / final (constant fuel_raw = C2H4).
+  - XO2 is the oxygen fraction of the burner stream; XC2H4 is the fuel fraction of the ambient.
+columns:
+  Flame Type: {ignore: 'constant; see constants.flame_type'}
+  Day: {field: campaign_day}
+  Test: {field: test_label}
+  XO2: {field: o2_mole_frac, parser: number, unit: mole_frac, tokens: {RAMP: {flag: ramped}, LOW O2: {flag: non_numeric}}}
+  mO2 (mg/s): {variable: o2_mass_flow, parser: number, unit: mg/s}
+  mN2 (mg/s): {variable: n2_mass_flow, parser: number, unit: mg/s}
+  mtot (mg/s): {variable: total_mass_flow, parser: number, unit: mg/s}
+  XC2H4 initial: {field: fuel_mole_frac, parser: number, unit: mole_frac}
+  XC2H4 final: {variable: fuel_mole_frac_final, parser: number, unit: mole_frac}
+  pinit (atm): {field: pressure_kpa, parser: number, unit: atm}
+  pfinal (atm): {variable: pressure_final, parser: number, unit: atm}
+  pmean (atm): {variable: pressure_mean, parser: number, unit: atm}
+  mean Zst: {variable: stoich_mixture_fraction, parser: number, unit: '1'}
+  Tad (K): {variable: adiabatic_flame_temp, parser: number, unit: K}

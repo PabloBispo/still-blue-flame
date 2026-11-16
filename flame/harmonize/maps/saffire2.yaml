@@ -1,0 +1,37 @@
+table_id: saffire2
+psi_id: PSI-99
+grain: test
+title: Saffire-II, nine material samples with microgravity and 1 g reference results
+source:
+  file: files/PSI-99/Experimental table/PSI-99_Experimental table_SAFFIRE-2.csv
+constants: {fuel_phase: solid, oxidizer_location: ambient}
+label: [Sample Number]
+ffill: [Material]
+keep_if:
+  - {column: Air Flow (cm/s), regex: '\d', reason: 'pre-test flow visualisation row or continuation row, not a burn'}
+semantic_notes:
+  - "Samples 2-6 and 2-9 have an empty Material cell (merged with the row above in the original layout). Material is forward-filled from 2-5 and 2-8 and flagged."
+  - "'?-g' in the headers is 'µ-g' (character lost in export)."
+  - "'?-g Spread Length' holds spread rates in mm/s (compare the 1-g column 'Spread Rate')."
+  - "Thickness '037 mm' is written without a decimal point; parsed as 37 and flagged suspect_leading_zero. Not corrected."
+  - The 1-g columns are ground reference tests of the same material, reported side by side.
+columns:
+  Sample Number: {field: test_label}
+  Material: {field: fuel_raw}
+  Samle Thickness:
+    - {field: thickness_mm, parser: number, unit: mm}
+    - {variable: sample_thickness_text}
+  Sample Length: {variable: sample_length, parser: number, unit: cm}
+  Sample Width (cm): {variable: sample_width, parser: number, unit: cm}
+  Air Flow (cm/s): {field: flow_velocity_cm_s, parser: number, unit: cm/s}
+  Percent O2 (Note 1): {field: o2_mole_frac, parser: number, unit: '%'}
+  Ignition Power (W): {variable: ignition_power, parser: number, unit: W}
+  Ignition Time (s): {variable: ignition_time, parser: number, unit: s}
+  Burn Time (s): {field: burn_time_s, parser: number, unit: s}
+  Flow Direction: {field: flow_direction, parser: enum, map: {Concurrent: concurrent, Opposed: opposed}}
+  '?-g Burn Length': {variable: burn_length_ug, parser: number, unit: cm}
+  '?-g Spread Length': {variable: spread_rate_ug, parser: number, unit: mm/s}
+  1-g Burn Length: {variable: burn_length_1g, parser: number, unit: cm}
+  1-g Spread Rate: {variable: spread_rate_1g, parser: number, unit: mm/s}
+  Camera 1: {variable: camera_file}
+  Camera 2: {variable: camera_file}

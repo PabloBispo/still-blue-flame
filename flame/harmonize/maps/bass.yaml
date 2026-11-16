@@ -1,0 +1,49 @@
+table_id: bass
+psi_id: PSI-26
+grain: test
+title: BASS, as-run test matrix (solid fuels in the Microgravity Science Glovebox)
+source:
+  file: files/PSI-26/Science Documents/PSI-26_Science Documents_As Run_Test Matrix.xlsx
+  sheet: as run matrix
+  header_row: 3
+supersedes:
+  - {file: files/PSI-26/Experimental table/PSI-26_Experimental table_BASS.csv, reason: 'The PSI experimental table keeps 6 of the 30 columns. The as-run workbook adds O2, pressure, flow, fan, radiometer and the test observations.'}
+constants: {fuel_phase: solid, oxidizer_location: ambient}
+label: [As run test no., Test no.]
+keep_if:
+  - {column: As run test no., regex: '^\d+$', reason: 'not a test row (setup, stow, cleaning, footnotes)'}
+semantic_notes:
+  - "'O2 % by volume' holds fractions (0.159 to 0.227), not percentages. Mapped as mole fraction."
+  - "'Air display' is the duct air velocity in cm/s (BASS ReadMe). Cells hold the sequence of values set during the test."
+  - Sheets 2012 and 2013 repeat the same rows; 'TP without Data' and 'Data without TP' are bookkeeping. Not loaded.
+columns:
+  Actual Date (for SPICE Display Date, add 1 for Leap Year): {field: test_date, parser: date}
+  Approx Start Time ( with GMT): {variable: test_time_text}
+  As run test no.: {ignore: part of the label}
+  Test no.: {ignore: part of the label}
+  Sample no.: {variable: sample_number}
+  material: {field: fuel_raw}
+  Igniter: {variable: igniter}
+  Flow restrictor: {variable: flow_restrictor}
+  Sample distance: {variable: sample_position}
+  Fan display: {variable: fan_display_seq, parser: sequence}
+  Air display: {field: flow_velocity_cm_s, variable: flow_velocity_seq, parser: sequence, unit: cm/s, flags: [unit_assumed]}
+  Radiometer gain ( 1000, 250, 50, 10): {variable: radiometer_gain}
+  Radiometer display: {variable: radiometer_display}
+  GN2 Pot: {variable: gn2_suppression}
+  GN2 display: {variable: gn2_suppression}
+  Filter y/n: {ignore: camera setting}
+  Release Mode (CH/CL): {ignore: camera setting}
+  Exposure Mode (M/A): {ignore: camera setting}
+  Exposure compensation (-#EV): {ignore: camera setting}
+  Bracket frames and exposure bracket (#F/ 1.0): {ignore: camera setting}
+  shutter speed (1/s): {ignore: camera setting}
+  F stop: {ignore: camera setting}
+  ISO: {ignore: camera setting}
+  shutter hold s /cont: {ignore: camera setting}
+  SD card S/N: {ignore: camera setting}
+  total frames shot: {variable: frames_shot}
+  O2 % by volume: {field: o2_mole_frac, parser: number, unit: mole_frac}
+  pressure, atm: {field: pressure_kpa, parser: number, unit: atm}
+  CO2, mm Hg: {variable: co2_partial_pressure, parser: number, unit: mmHg}
+  Test Observations and Anomalies (ignited, spread, extinguished, burn time, color, etc.): {field: notes}
